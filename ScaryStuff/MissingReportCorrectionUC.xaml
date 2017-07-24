@@ -1,0 +1,62 @@
+﻿<UserControl x:Class="ScaryStuff.MissingReportCorrectionUC"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:ScaryStuff"
+             mc:Ignorable="d" 
+             d:DesignHeight="600" d:DesignWidth="800" Background="#F1F1F2">
+    <Grid>
+        <StackPanel>
+            <Grid>
+                <!--Başlık-->
+                <Border BorderBrush="#1995AD" BorderThickness="1" Padding="5" Background="#A1D6E2">
+                    <TextBlock x:Name="lblSerialText" Text="{Binding OKCSerial}" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                </Border>
+            </Grid>
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="2*"/>
+                    <ColumnDefinition Width="5*"/>
+                </Grid.ColumnDefinitions>
+                <Grid Margin="5 5 0 0">
+                    <Border BorderBrush="#1995AD" BorderThickness="1" Padding="5">
+                        <StackPanel Margin="5 5 5 0">
+                            <TextBlock Text="Missing ZReport" />
+                            <ComboBox x:Name="cmbMissingZNo" SelectedValue="{Binding Path=SelectedZReportNumberStr, Mode=TwoWay}" ItemsSource="{Binding MissingZNoListStr}"/>
+                            <TextBlock Text="Date" />
+                            <DatePicker x:Name="dpMissigZDate" SelectedDate="{Binding Path=SelectedZReporDate}"/>
+                            <Button Content="Data Entry" Grid.Column="2" Command="{Binding Path=AddZNoToDepartmentEntry}"/>
+                            <Button Content="Add New ZNo" Grid.Column="3"/>
+                        </StackPanel>
+                    </Border>
+                </Grid>
+                <Grid Grid.Column="1" Margin="5 5 5 0">
+                    <Border BorderBrush="#1995AD" BorderThickness="1" Padding="5">
+                        <StackPanel>
+
+                            <Grid>
+                                <Border Background="#A1D6E2" BorderBrush="#1995AD" BorderThickness="1">
+                                    <Label Height="25" HorizontalAlignment="Center">
+                                        <!--Content="Departman Verisi Girişi"-->
+                                        <TextBlock>
+                                            <TextBlock.Text>
+                                                <MultiBinding StringFormat="Departman Verisi Girişi {0} {1}">
+                                                    <Binding Path="AddedZno" />
+                                                    <Binding Path="AddedZDate" />
+                                                </MultiBinding>
+                                            </TextBlock.Text>
+                                        </TextBlock>
+                                    </Label>
+                                </Border>
+                            </Grid>
+                            <Grid>
+                                <DataGrid ItemsSource="{Binding MonthtlyMissingReports}" IsReadOnly="False" AutoGenerateColumns="true" />
+                            </Grid>
+                        </StackPanel>
+                    </Border>
+                </Grid>
+            </Grid>
+        </StackPanel>
+    </Grid>
+</UserControl>
